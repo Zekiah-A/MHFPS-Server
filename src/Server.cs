@@ -29,7 +29,7 @@ namespace MHFPS_Server
             tcpListener.BeginAcceptTcpClient(new AsyncCallback(TCPConnectCallback), null);
 
             udpListener = new UdpClient(Port);
-            udpListener.BeginReceive(UDPReceiveCallback, null)
+            udpListener.BeginReceive(UDPReceiveCallback, null);
 
             Console.WriteLine($"Server started on port {Port}.");
         }
@@ -54,7 +54,55 @@ namespace MHFPS_Server
 
         private static void UDPReceiveCallback(IAsyncResult  _result)
         {
-            
+            try
+            {
+                IPEndPoint _clientEndPoint =  new IPEndPoint(IPAddress.Any, 0);
+                byte[] _data = udpListener.EndReceive(_result, ref _clientEndPoint);
+                udpListener.BeginReceive(UDPReceiveCallback, null);
+
+                if (_data.Length < 4)
+                {
+                    return; //TODO: stuff
+                }
+
+                using (Packet _packet = new Packet(_data))
+                {
+                    int _clientId = _packet.ReadInt();
+
+                    if (_clientId == 0)
+                    {
+                        return;
+                    }
+
+                    if (clients[_clientId].udp.endPoint == null)
+                    {
+                        clients[_clientId].udp.Connect(_clientEndPoint);
+                        return;
+                    }
+
+                    ///<summary>Created to prevent hacker impersonation by changing clientID by comparing.</summary>
+                    if (clients[_clientId].udp.endPoint.ToString() == _clientEndPoint.ToString())
+                    {
+                        clients[_clientId].udp.HandleData(_packet);
+                    }
+                }
+            }
+            catch(Exception _e)
+            {
+                Console.WriteLine($"Error receiving UDP data: {_e}");
+            }
+        }
+
+        public static void SendUDPData(IPEndPoint _clientEndPoint, Packet _packet)
+        {
+            try
+            {
+                
+            }
+            catch(Exception _e)
+            {
+                Console.WriteLine($" {_e}");
+            }
         }
 
         private static void InitializeServerData()
