@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Net;
 using System.Net.Sockets;
+using System.Numerics;
 
 namespace MHFPS_Server
 {
@@ -11,6 +12,7 @@ namespace MHFPS_Server
         public static int dataBufferSize = 4096;
 
         public int id;
+        public Player player;
         public TCP tcp;
         public UDP udp;
 
@@ -174,6 +176,13 @@ namespace MHFPS_Server
                     }
                 });
             }
+        }
+    
+        public void SendIntoGame(string _playerName)
+        {
+            player = new Player(id, _playerName, new Vector3(0, 0, 0));
+
+            //1:21
         }
     }
 }

@@ -23,7 +23,7 @@ namespace MHFPS_Server
         {
             string _msg = _packet.ReadString();
 
-            Console.WriteLine($"Received packet via  UDP. Contains message: {_msg}");
+            Console.WriteLine($"Received packet via UDP. Contains message: {_msg}");
         }
     }
 }
