@@ -150,6 +150,9 @@ namespace MHFPS_Server
             public void Connect(IPEndPoint _endPoint)
             {
                 endPoint = _endPoint;
+
+                ///<summary>For testing UDP connection.</summary>
+                ServerSend.UDPTest(id);
             }
 
             public void SendData(Packet  _packet)

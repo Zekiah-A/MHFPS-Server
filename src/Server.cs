@@ -97,11 +97,14 @@ namespace MHFPS_Server
         {
             try
             {
-                
+                if (_clientEndPoint != null)
+                {
+                    udpListener.BeginSend(_packet.ToArray(), _packet.Length(), _clientEndPoint, null, null);
+                }
             }
             catch(Exception _e)
             {
-                Console.WriteLine($" {_e}");
+                Console.WriteLine($"Error sending data to {_clientEndPoint} via UDP: {_e}");
             }
         }
 
@@ -114,7 +117,8 @@ namespace MHFPS_Server
 
             packetHandlers = new Dictionary<int, PacketHandler>()
             {
-                { (int)ClientPackets.welcomeReceived, ServerHandle.WelcomeReceived }
+                { (int)ClientPackets.welcomeReceived, ServerHandle.WelcomeReceived },
+                { (int)ClientPackets.udpTestReceived, ServerHandle.UDPTestReceived }
             };
             Console.WriteLine($"Initialised packets.");
         }

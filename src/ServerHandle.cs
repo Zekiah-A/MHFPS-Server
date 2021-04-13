@@ -18,5 +18,10 @@ namespace MHFPS_Server
             }
             //TODO: Send player into game!
         }
+
+        public static void UDPTestReceived(int _fromClient, Packet _packet)
+        {
+            ServerSend.UDPTest(_fromClient);
+        }
     }
 }
