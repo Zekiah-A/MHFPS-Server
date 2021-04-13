@@ -21,7 +21,9 @@ namespace MHFPS_Server
 
         public static void UDPTestReceived(int _fromClient, Packet _packet)
         {
-            ServerSend.UDPTest(_fromClient);
+            string _msg = _packet.ReadString();
+
+            Console.WriteLine($"Received packet via  UDP. Contains message: {_msg}");
         }
     }
 }
