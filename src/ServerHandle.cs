@@ -16,7 +16,8 @@ namespace MHFPS_Server
             {
                 Console.WriteLine($"Player \"{_username}\" (ID: {_fromClient}) has assigned the wrong client ID ({_clientIDCheck})!");
             }
-            //TODO: Send player into game!
+
+            Server.clients[_fromClient].SendIntoGame(_username);
         }
 
         public static void UDPTestReceived(int _fromClient, Packet _packet)

@@ -182,7 +182,24 @@ namespace MHFPS_Server
         {
             player = new Player(id, _playerName, new Vector3(0, 0, 0));
 
-            //1:21
+            foreach (Client _client in Server.clients.Values)
+            {
+                if (_client.player != null)
+                {
+                    if (_client.id != id)
+                    {
+                        ServerSend.SpawnPlayer(id, _client.player);
+                    }
+                }
+            }
+
+            foreach (Client  _client in Server.clients.Values)
+            {
+                if (_client.player != null)
+                {
+                    ServerSend.SpawnPlayer(_client.id, player);
+                }
+            }
         }
     }
 }
