@@ -118,6 +118,8 @@ namespace MHFPS_Server
             packetHandlers = new Dictionary<int, PacketHandler>()
             {
                 { (int)ClientPackets.welcomeReceived, ServerHandle.WelcomeReceived },
+                { (int)ClientPackets.updatePositionReceived, ServerHandle.UpdatePositionReceived },
+                { (int)ClientPackets.updateRotationReceived, ServerHandle.UpdateRotationReceived },
                 { (int)ClientPackets.udpTestReceived, ServerHandle.UDPTestReceived }
             };
             Console.WriteLine($"Initialised packets.");

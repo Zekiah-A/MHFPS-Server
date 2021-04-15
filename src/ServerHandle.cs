@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Numerics;
 
 namespace MHFPS_Server
 {
@@ -25,6 +26,24 @@ namespace MHFPS_Server
             string _msg = _packet.ReadString();
 
             Console.WriteLine($"Received packet via UDP. Contains message: {_msg}");
+        }
+
+        public static void UpdatePositionReceived(int _fromClient, Packet _packet)
+        {
+            int _playerId = _packet.ReadInt();
+            Vector3 _newPos = _packet.ReadVector3();
+            Client _client = Server.clients[_fromClient];
+            //send this stuff to all
+            ServerSend.UpdatePosition(/*_fromClient, _newPos, _client.player*/); //THIS WAS THE PROPER WAY
+        }
+
+        public static void UpdateRotationReceived(int _fromClient, Packet _packet) //on recieve, send back!
+        {
+            int _playerId = _packet.ReadInt();
+            Quaternion _newRot = _packet.ReadQuaternion();
+            Client _client = Server.clients[_fromClient];
+            //
+            ServerSend.UpdateRotation(_fromClient, _newRot, _client.player);
         }
     }
 }

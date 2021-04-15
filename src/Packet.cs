@@ -21,7 +21,8 @@ namespace MHFPS_Server
     public enum ClientPackets
     {
         welcomeReceived = 1,
-        playerMovement,
+        updatePositionReceived,
+        updateRotationReceived,
         udpTestReceived
     }
 

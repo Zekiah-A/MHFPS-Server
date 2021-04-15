@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Numerics;
 
 namespace MHFPS_Server
 {
@@ -52,7 +53,7 @@ namespace MHFPS_Server
         public static void SendUDPDataToAll(int _exceptClient, Packet _packet)
         {
             _packet.WriteLength();
-            for (int i  = 0; i <= Server.MaxPlayers; i++)
+            for (int i  = 0; i <= Server.MaxPlayers; i++) //i = 1?
             {
                 if (i != _exceptClient)
                 {
@@ -95,6 +96,32 @@ namespace MHFPS_Server
                 _packet.Write(_player.rotation);
 
                 SendTCPData(_toClient, _packet);
+            }
+
+            UpdatePosition();
+        }
+
+        public static void UpdatePosition(/*int _exceptClient, Vector3 _newPos, Player _player*/) //updates player pos
+        {
+            using (Packet _packet = new Packet((int)ServerPackets.playerPosition))
+            { //playerPosition
+                _packet.Write(1/*_player.id*/);
+                _packet.Write(new Vector3(10,10,10)/*_newPos*/);
+                SendTCPData(1, _packet/*_exceptClient, _packet*/);
+                //SendTCPData(0, _packet/*_exceptClient, _packet*/);
+                //SendTCPData(3, _packet/*_exceptClient, _packet*/);
+                ///////////////
+                Console.WriteLine("SENT A POSITION PACKET");
+            }
+        }
+
+        public static void UpdateRotation(int _exceptClient, Quaternion _newRot, Player _player)
+        {
+            using (Packet _packet = new Packet((int)ServerPackets.playerRotation))
+            { //playerRotation
+                _packet.Write(_player.id);
+                _packet.Write(_newRot); ///we also need to  sendd the player that has moved
+                SendUDPDataToAll(_exceptClient, _packet);
             }
         }
         #endregion
