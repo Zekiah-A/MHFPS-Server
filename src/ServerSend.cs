@@ -53,14 +53,18 @@ namespace MHFPS_Server
         public static void SendUDPDataToAll(int _exceptClient, Packet _packet)
         {
             _packet.WriteLength();
-            for (int i  = 0; i <= Server.MaxPlayers; i++) //i = 1?
+            for (int i  = 1; i <= Server.MaxPlayers; i++) //i = 1?
             {
                 if (i != _exceptClient)
                 {
-                    Server.clients[i].udp.SendData(_packet);
-                }
+                    Server.clients[i].udp.SendData(_packet); //client 0 doesn't exist!
+                } //maybe add a try/catch here? ^ 
             }
         }
+        ///TODO: Issue with sending data to all (exceptions cause socket closure)
+        ///Unhandled exception.
+        ///System.Collections.Generic.KeyNotFoundException:
+        ///The given key '0' was not present in the dictionary.
         #endregion
 
         #region Packets
@@ -97,21 +101,15 @@ namespace MHFPS_Server
 
                 SendTCPData(_toClient, _packet);
             }
-
-            UpdatePosition();
         }
 
-        public static void UpdatePosition(/*int _exceptClient, Vector3 _newPos, Player _player*/) //updates player pos
+        public static void UpdatePosition(int _exceptClient, Vector3 _newPos/*, Player _player*/) //updates player pos
         {
             using (Packet _packet = new Packet((int)ServerPackets.playerPosition))
             { //playerPosition
-                _packet.Write(1/*_player.id*/);
-                _packet.Write(new Vector3(10,10,10)/*_newPos*/);
-                SendTCPData(1, _packet/*_exceptClient, _packet*/);
-                //SendTCPData(0, _packet/*_exceptClient, _packet*/);
-                //SendTCPData(3, _packet/*_exceptClient, _packet*/);
-                ///////////////
-                Console.WriteLine("SENT A POSITION PACKET");
+                _packet.Write(_exceptClient); //i think this is the same as ID
+                _packet.Write(_newPos);
+                SendUDPDataToAll(_exceptClient, _packet);
             }
         }
 
