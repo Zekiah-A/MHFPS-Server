@@ -43,7 +43,7 @@ namespace MHFPS_Server
             Quaternion _newRot = _packet.ReadQuaternion();
             Client _client = Server.clients[_fromClient];
             //
-            ServerSend.UpdateRotation(_fromClient, _newRot, _client.player);
+            ServerSend.UpdateRotation(_fromClient, _newRot);
         }
     }
 }

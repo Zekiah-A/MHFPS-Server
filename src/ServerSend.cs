@@ -103,22 +103,22 @@ namespace MHFPS_Server
             }
         }
 
-        public static void UpdatePosition(int _exceptClient, Vector3 _newPos/*, Player _player*/) //updates player pos
+        public static void UpdatePosition(int _exceptClient, Vector3 _newPos)
         {
             using (Packet _packet = new Packet((int)ServerPackets.playerPosition))
-            { //playerPosition
-                _packet.Write(_exceptClient); //i think this is the same as ID
+            {
+                _packet.Write(_exceptClient);
                 _packet.Write(_newPos);
                 SendUDPDataToAll(_exceptClient, _packet);
             }
         }
 
-        public static void UpdateRotation(int _exceptClient, Quaternion _newRot, Player _player)
+        public static void UpdateRotation(int _exceptClient, Quaternion _newRot)
         {
             using (Packet _packet = new Packet((int)ServerPackets.playerRotation))
-            { //playerRotation
-                _packet.Write(_player.id);
-                _packet.Write(_newRot); ///we also need to  sendd the player that has moved
+            {
+                _packet.Write(_exceptClient);
+                _packet.Write(_newRot);
                 SendUDPDataToAll(_exceptClient, _packet);
             }
         }
