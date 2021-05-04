@@ -32,7 +32,7 @@ namespace MHFPS_Server
         {
             //int _playerId = _packet.ReadInt(); //more clineid i guess
             Vector3 _newPos = _packet.ReadVector3();
-            Client _client = Server.clients[_fromClient];
+            //Client _client = Server.clients[_fromClient];
             
             ServerSend.UpdatePosition(_fromClient, _newPos); //THIS WAS THE PROPER WAY
         }
@@ -41,9 +41,25 @@ namespace MHFPS_Server
         {
             //int _playerId = _packet.ReadInt();
             Quaternion _newRot = _packet.ReadQuaternion();
-            Client _client = Server.clients[_fromClient];
+            //Client _client = Server.clients[_fromClient]; //why does this exist, it's not used
             
             ServerSend.UpdateRotation(_fromClient, _newRot);
+        }
+
+        public static void TextChatReceived(int _fromClient, Packet _packet)
+        {
+            string _username = _packet.ReadString();
+            string _msg = _packet.ReadString();
+            Console.WriteLine($"Player {_fromClient} sent message {_msg}.");
+           
+            //TODO: fix the worst censor ever
+            if (_msg.ToLower().Contains("sublime") || _msg.ToLower().Contains("axel"))
+            {
+                _msg = "c̸̢̢̙̻̻͈̱̜̼̳̖̣̥̹͍̮̣̱̲̳͕̍̀̒̆̊̈̅̄́̕͜͜͠ǫ̸̢̭͖̫̻̮̮͈̜̘̖͍͋͗̂̒̆͋̆͒̀̀̔͌̐͌̓̀̏̓̀̉͊̃͑͘͜͠͝ŗ̶͈̠̼͎͓̬̭̩͙͖̭̙͎̳̳̮̖͖̟̜̈́̋́́̈́̎̀̚r̵̨̨̙̜̪̾̽̓̏͐͐̀̋̾͋̔̓͒̂̄̽́̂̿͐̅̀̓̃̀̉̎͘͠ư̷̡̨̢̮̟͈͓̻̯̬̠͚̺̘̖͙̞̍͛̀͂͛̑̈́̅̔̃͂́̀̅̏͆͌̾̎͘̚͠͝ͅp̴̨̢̛̯̜͂͑̊̑͆̈́͌͛͗̅́̀͛̋͠ţ̴̱̩̺̖͖̬̥̓̋̀̿͘é̵̟̯͍̥̗̣̩͇̟̰̜̭̤̦̇d̷̠̝̙̪͓̣͈̦̝̫̭̙̩̲̱̥̎͗͒̉̽̇̀̅̋̈͌̒̇̀͂̽͊̾̇̒̆͘̕͝͝";
+            }
+            string _formatted = new String($"{_username}: {_msg}");
+
+            ServerSend.TextChat(_fromClient, _formatted);
         }
     }
 }

@@ -8,23 +8,25 @@ using System.Numerics;
 namespace MHFPS_Server
 {
     /// <summary>Sent from server to client.</summary>
-    public enum ServerPackets
-    {
-        welcome = 1,
-        spawnPlayer,
-        playerPosition,
-        playerRotation,
-        udpTest
-    }
+public enum ServerPackets
+{
+    welcome = 1,
+    spawnPlayer,
+    playerPosition,
+    playerRotation,
+    textChat,
+    udpTest
+}
 
-    /// <summary>Sent from client to server.</summary>
-    public enum ClientPackets
-    {
-        welcomeReceived = 1,
-        updatePositionReceived,
-        updateRotationReceived,
-        udpTestReceived
-    }
+/// <summary>Sent from client to server.</summary>
+public enum ClientPackets
+{
+    welcomeReceived = 1,
+    updatePositionReceived,
+    updateRotationReceived,
+    textChatReceived,
+    udpTestReceived
+}
 
     public class Packet : IDisposable
     {

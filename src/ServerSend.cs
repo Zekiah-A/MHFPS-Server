@@ -44,7 +44,7 @@ namespace MHFPS_Server
         public static void SendUDPDataToAll(Packet _packet)
         {
             _packet.WriteLength();
-            for (int i  = 0; i <= Server.MaxPlayers; i++)
+            for (int i  = 1; i <= Server.MaxPlayers; i++) //fixed bruh
             {
                 Server.clients[i].udp.SendData(_packet);
             }
@@ -120,6 +120,16 @@ namespace MHFPS_Server
                 _packet.Write(_exceptClient);
                 _packet.Write(_newRot);
                 SendUDPDataToAll(_exceptClient, _packet);
+            }
+        }
+
+        public static void TextChat(int _fromClient, string _formatted)
+        {
+            using (Packet _packet = new Packet((int)ServerPackets.textChat))
+            {
+                _packet.Write(_fromClient);
+                _packet.Write(_formatted);
+                SendUDPDataToAll(_packet);
             }
         }
         #endregion
