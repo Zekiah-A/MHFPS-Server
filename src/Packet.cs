@@ -188,7 +188,7 @@ public enum ClientPackets
             Write(_value.W); //Add w value of quaternion
         }
         /// <summary>Adds a rgba colour value to the packet.</summary>
-        /// <param name="_value"></param>The colour to add</param>
+        /// <param name="_value">The colour to add</param>
         public void Write(Colour _value)
         {
             Write(_value.R);

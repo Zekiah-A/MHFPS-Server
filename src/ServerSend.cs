@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Numerics;
+using Utils.Colour;
 
 namespace MHFPS_Server
 {
@@ -123,12 +124,13 @@ namespace MHFPS_Server
             }
         }
 
-        public static void TextChat(int _fromClient, string _formatted)
+        public static void TextChat(int _fromClient, string _formatted, Colour _colour)
         {
             using (Packet _packet = new Packet((int)ServerPackets.textChat))
             {
                 _packet.Write(_fromClient);
                 _packet.Write(_formatted);
+                _packet.Write(_colour);
                 SendUDPDataToAll(_packet);
             }
         }
