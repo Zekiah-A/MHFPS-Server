@@ -134,6 +134,14 @@ namespace MHFPS_Server
                 SendUDPDataToAll(_packet);
             }
         }
+
+        public static void RigidUpdate(int _exceptClient)
+        {
+            using(Packet _packet = new Packet((int)ServerPackets.rigidUpdate))
+            {
+                SendUDPDataToAll(_exceptClient, _packet);
+            }
+        }
         #endregion
     }
 }

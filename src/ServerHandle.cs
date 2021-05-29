@@ -64,5 +64,13 @@ namespace MHFPS_Server
 
             ServerSend.TextChat(_fromClient, _formatted, _colour);
         }
+
+        public static void RigidUpdateReceived(int _fromClient, Packet _packet)
+        {
+            Vector3 _newPos = _packet.ReadVector3();
+
+            ServerSend.RigidUpdate()_fromClient);
+            
+        }
     }
 }
