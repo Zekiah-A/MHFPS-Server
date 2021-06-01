@@ -67,9 +67,10 @@ namespace MHFPS_Server
 
         public static void RigidUpdateReceived(int _fromClient, Packet _packet)
         {
+            //TODO: Object sends a "rigid ID", rigiud manager script in game would search and move the correct one
+            int _rigidId = _packet.ReadInt();
             Vector3 _newPos = _packet.ReadVector3();
-
-            ServerSend.RigidUpdate()_fromClient);
+            ServerSend.RigidUpdate(_fromClient, _rigidId, _newPos);
             
         }
     }

@@ -24,7 +24,7 @@ namespace MHFPS_Server
         public static void SendTCPDataToAll(Packet _packet)
         {
             _packet.WriteLength();
-            for (int i  = 0; i <= Server.MaxPlayers; i++)
+            for (int i  = 1; i <= Server.MaxPlayers; i++)
             {
                 Server.clients[i].tcp.SendData(_packet);
             }
@@ -33,7 +33,7 @@ namespace MHFPS_Server
         public static void SendTCPDataToAll(int _exceptClient, Packet _packet)
         {
             _packet.WriteLength();
-            for (int i  = 0; i <= Server.MaxPlayers; i++)
+            for (int i  = 1; i <= Server.MaxPlayers; i++)
             {
                 if (i != _exceptClient)
                 {
@@ -62,10 +62,9 @@ namespace MHFPS_Server
                 } //maybe add a try/catch here? ^ 
             }
         }
-        ///TODO: Issue with sending data to all (exceptions cause socket closure)
-        ///Unhandled exception.
-        ///System.Collections.Generic.KeyNotFoundException:
-        ///The given key '0' was not present in the dictionary.
+        //~~TODO: Issue with sending data to all (exceptions cause socket closure)~~
+        //~~The given key '0' was not present in the dictionary.~~
+        //Possibly fixed?
         #endregion
 
         #region Packets
@@ -135,10 +134,12 @@ namespace MHFPS_Server
             }
         }
 
-        public static void RigidUpdate(int _exceptClient)
+        public static void RigidUpdate(int _exceptClient, int _rigidId, Vector3 _newPos)
         {
             using(Packet _packet = new Packet((int)ServerPackets.rigidUpdate))
             {
+                _packet.Write(_rigidId);
+                _packet.Write(_newPos);
                 SendUDPDataToAll(_exceptClient, _packet);
             }
         }
