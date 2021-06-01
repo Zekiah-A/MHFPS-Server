@@ -134,6 +134,7 @@ namespace MHFPS_Server
             }
         }
 
+        ///<summary>Send rigid update to clients (called from server handle (receive))</summary>
         public static void RigidUpdate(int _exceptClient, int _rigidId, Vector3 _newPos)
         {
             using(Packet _packet = new Packet((int)ServerPackets.rigidUpdate))
