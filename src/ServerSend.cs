@@ -141,7 +141,7 @@ namespace MHFPS_Server
             {
                 _packet.Write(_rigidId);
                 _packet.Write(_newPos);
-                SendUDPDataToAll(_exceptClient, _packet);
+                SendUDPDataToAll(/*_exceptClient,*/ _packet); //TODO: Add back exceptclient - removed for testing
             }
         }
         #endregion
