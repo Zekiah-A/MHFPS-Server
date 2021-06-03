@@ -17,7 +17,8 @@ public enum ServerPackets
     playerRotation,
     textChat,
     udpTest,
-    rigidUpdate
+    rigidUpdate,
+    playerDamage
 }
 
 /// <summary>Sent from client to server.</summary>
@@ -28,7 +29,8 @@ public enum ClientPackets
     updateRotationReceived,
     textChatReceived,
     udpTestReceived,
-    rigidUpdateRecieved
+    rigidUpdateRecieved, //TODO: Fix incorrect spelling
+    playerDamageReceived
 }
 
     public class Packet : IDisposable

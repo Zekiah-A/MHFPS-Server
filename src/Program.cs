@@ -13,6 +13,8 @@ namespace MHFPS_Server
             Console.WriteLine("Sublime-Server v0.0.4"); 
             Console.WriteLine("By zekiahepic");
             Console.ResetColor();
+            SelectGamemode();
+
             isRunning = true;
 
             Thread mainThread = new Thread(new ThreadStart(MainThread));
@@ -41,6 +43,21 @@ namespace MHFPS_Server
                     Thread.Sleep(_nextLoop - DateTime.Now);
                 }
             }
+        }
+
+        private static void SelectGamemode()
+        {
+            Console.WriteLine("Enter server gamemode:\n(1)Deathmatch,\n(2)PlayersVsEnemies,\n(3)TeamDeathmatch");
+            var response = Console.ReadKey(true);
+            Console.SetCursorPosition(0, Console.CursorTop - 4);
+            Console.Write("");
+            Console.ResetColor();
+            if (response.ToString() == "1")
+                GameLogic.CurrentGamemode = (int)GameLogic.Gamemodes.Deathmatch;
+            else if (response.ToString() == "2")
+                GameLogic.CurrentGamemode = (int)GameLogic.Gamemodes.PlayersVsEnemies;
+            else if (response.ToString() == "3")
+                GameLogic.CurrentGamemode = (int)GameLogic.Gamemodes.TeamDeathmatch;
         }
     }
 }

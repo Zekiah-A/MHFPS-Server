@@ -144,6 +144,8 @@ namespace MHFPS_Server
                 SendUDPDataToAll(_exceptClient, _packet);
             }
         }
+
+        //TODO: Implement server damage
         #endregion
     }
 }

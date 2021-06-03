@@ -122,7 +122,8 @@ namespace MHFPS_Server
                 { (int)ClientPackets.updateRotationReceived, ServerHandle.UpdateRotationReceived },
                 { (int)ClientPackets.textChatReceived, ServerHandle.TextChatReceived },
                 { (int)ClientPackets.udpTestReceived, ServerHandle.UDPTestReceived },
-                { (int)ClientPackets.rigidUpdateRecieved, ServerHandle.RigidUpdateReceived }
+                { (int)ClientPackets.rigidUpdateRecieved, ServerHandle.RigidUpdateReceived },
+                { (int)ClientPackets.playerDamageReceived, ServerHandle.PlayerDamageReceived }
             };
             Console.WriteLine($"Initialised packets.");
         }

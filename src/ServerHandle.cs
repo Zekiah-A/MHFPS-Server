@@ -73,5 +73,12 @@ namespace MHFPS_Server
             ServerSend.RigidUpdate(_fromClient, _rigidId, _newPos);
             
         }
+
+        public static void PlayerDamageReceived(int _fromClient, Packet _packet)
+        {
+            //(we have player who sent)
+            //Player ID damaged (make a server side disctionary)
+            //Float for health taken
+        }
     }
 }
