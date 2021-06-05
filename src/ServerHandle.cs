@@ -31,19 +31,15 @@ namespace MHFPS_Server
 
         public static void UpdatePositionReceived(int _fromClient, Packet _packet)
         {
-            //int _playerId = _packet.ReadInt(); //more clineid i guess
             Vector3 _newPos = _packet.ReadVector3();
-            //Client _client = Server.clients[_fromClient];
-            
+            //TODO: Update position in "player" class (object)
             ServerSend.UpdatePosition(_fromClient, _newPos); //THIS WAS THE PROPER WAY
         }
 
         public static void UpdateRotationReceived(int _fromClient, Packet _packet) //on recieve, send back!
         {
-            //int _playerId = _packet.ReadInt();
             Quaternion _newRot = _packet.ReadQuaternion();
-            //Client _client = Server.clients[_fromClient]; //why does this exist, it's not used
-            
+            //TODO: Update position in "player" class (object)
             ServerSend.UpdateRotation(_fromClient, _newRot);
         }
 
@@ -57,8 +53,12 @@ namespace MHFPS_Server
            
             //TODO: fix the worst censor ever
             if (_msg.ToLower().Contains("sublime") || _msg.ToLower().Contains("axel"))
-            {
-                _msg = "[CORRUPTED]";
+            {    
+                _msg = "";
+                foreach(char c in _msg)
+                {
+                    _msg += "*";
+                }
             }
             string _formatted = new String($"{_username}: {_msg}");
 

@@ -1,11 +1,16 @@
 ﻿using System;
+using System.IO;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Collections.Generic;
+using Utils.Colour;
 /// Sublime Server
 namespace MHFPS_Server
 {
     class Program
     {
+        private static string consoleInput;
+
         private static bool isRunning = false;
         static void Main(string[] args)
         {
@@ -21,6 +26,8 @@ namespace MHFPS_Server
             mainThread.Start();
 
             Server.Start(50, 19130);
+
+            InterpCommand();
         }
 
         private static void MainThread()
@@ -47,17 +54,68 @@ namespace MHFPS_Server
 
         private static void SelectGamemode()
         {
-            Console.WriteLine("Enter server gamemode:\n(1)Deathmatch,\n(2)PlayersVsEnemies,\n(3)TeamDeathmatch");
+            Console.WriteLine($"Enter server gamemode:\n(1){GameLogic.Gamemodes.Deathmatch},\n(2){GameLogic.Gamemodes.PlayersVsEnemies},\n(3){GameLogic.Gamemodes.TeamDeathmatch}");
             var response = Console.ReadKey(true);
             Console.SetCursorPosition(0, Console.CursorTop - 4);
             Console.Write("");
             Console.ResetColor();
-            if (response.ToString() == "1")
-                GameLogic.CurrentGamemode = (int)GameLogic.Gamemodes.Deathmatch;
-            else if (response.ToString() == "2")
-                GameLogic.CurrentGamemode = (int)GameLogic.Gamemodes.PlayersVsEnemies;
-            else if (response.ToString() == "3")
-                GameLogic.CurrentGamemode = (int)GameLogic.Gamemodes.TeamDeathmatch;
+
+            switch (response.ToString())
+            {
+                case "1":
+                    GameLogic.CurrentGamemode = (int)GameLogic.Gamemodes.Deathmatch;
+                    break;
+                case "2":
+                    GameLogic.CurrentGamemode = (int)GameLogic.Gamemodes.PlayersVsEnemies;
+                    break;
+                case "3":
+                 GameLogic.CurrentGamemode = (int)GameLogic.Gamemodes.TeamDeathmatch;
+                    break;
+                default:
+                    GameLogic.CurrentGamemode = (int)GameLogic.Gamemodes.Deathmatch;
+                    break;
+            }
+        }
+
+        private static async void InterpCommand()
+        {
+            while(true)
+            {
+                await ReadConsoleAsync();
+                
+                string[] consoleParts = consoleInput.Split(' ');
+                switch(consoleParts[0].ToLower())
+                {
+                    case "help":
+                        Console.WriteLine("Commands:\nAnnounce\nAdmin\nDisconnect\nExit");
+                        break;
+                    case "announce":
+                        ServerSend.TextChat(0, consoleInput.Replace("announce", "Server:"), new Colour(100, 0, 100, 255));
+                        break;
+                    case "admin":
+                        //TODO: give player by ID admin perms (/give command, change gamemode).
+                        break;
+                    case "disconnect":
+                        //TODO: Disconnect player from server.
+                        break;
+                    case "exit":
+                    //TODO: disconnect all players first.
+                        throw new Exception("\nServer Shutdown Called!");
+                    default:
+                        if (consoleInput != "")
+                            Console.WriteLine("Invalid command. Run 'help' to view list of commands.");
+                        break;
+                }
+            } 
+        }
+
+        private static async Task ReadConsoleAsync()
+        {
+            await Task.Run(() => {
+                consoleInput = Console.ReadLine();
+                return;
+            });
+            return;            
         }
     }
 }

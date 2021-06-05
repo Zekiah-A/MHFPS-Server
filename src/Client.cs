@@ -149,7 +149,7 @@ namespace MHFPS_Server
                 id = _id;
             }
 
-            /// <summary>Initializes the newly connected client's UDP-related info.</summary>
+            /// <summary>Initialises the newly connected client's UDP-related info.</summary>
             /// <param name="_endPoint">The IPEndPoint instance of the newly connected client.</param>
             public void Connect(IPEndPoint _endPoint)
             {

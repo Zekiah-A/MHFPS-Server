@@ -10,13 +10,13 @@ namespace MHFPS_Server
         public int id;
         public string username;
 
-        ///<summary> Spawn position </summary>
+        ///<summary> Current position of player </summary>
         public Vector3 position;
-        ///<summary>Spawn rotation</summary>
+        ///<summary> Current rotation of player </summary>
         public Quaternion rotation;
 
-        //<summary>Player health and status.</summary>
-        //TODO: Make a field for inventory, to verify if they didn't cheat
+        ///<summary> Player health and status. </summary>
+        //TODO: Make a field for current holding item, to verify if they didn't cheat
         public float health;
         public bool isDead;
 
