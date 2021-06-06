@@ -4,8 +4,9 @@ using System.Text;
 using System.Numerics;
 
 namespace MHFPS_Server
-{
-    public class Player
+
+{   ///<summary> Player is instanced by each client. </summary>
+    public class Player 
     {
         public int id;
         public string username;
@@ -29,5 +30,5 @@ namespace MHFPS_Server
             rotation = Quaternion.Identity;
             
         }
-    }
+    } //TODO: fix captilisation
 }

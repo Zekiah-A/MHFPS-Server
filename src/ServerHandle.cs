@@ -32,14 +32,16 @@ namespace MHFPS_Server
         public static void UpdatePositionReceived(int _fromClient, Packet _packet)
         {
             Vector3 _newPos = _packet.ReadVector3();
-            //TODO: Update position in "player" class (object)
-            ServerSend.UpdatePosition(_fromClient, _newPos); //THIS WAS THE PROPER WAY
+            ///<summary>Update this client's server 'player' position value</summary>
+            Server.clients[_fromClient].player.position = _newPos;
+            ServerSend.UpdatePosition(_fromClient, _newPos);
         }
 
-        public static void UpdateRotationReceived(int _fromClient, Packet _packet) //on recieve, send back!
+        public static void UpdateRotationReceived(int _fromClient, Packet _packet)
         {
             Quaternion _newRot = _packet.ReadQuaternion();
-            //TODO: Update position in "player" class (object)
+            ///<summary>Update this client's server 'player' rotation value</summary>
+            Server.clients[_fromClient].player.rotation = _newRot;
             ServerSend.UpdateRotation(_fromClient, _newRot);
         }
 
