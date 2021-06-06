@@ -19,6 +19,7 @@ namespace MHFPS_Server
         //TODO: Make a field for current holding item, to verify if they didn't cheat
         public float health;
         public bool isDead;
+        public bool isAdmin;
 
         public Player(int _id, string _username, Vector3 _spawnPosition)
         {

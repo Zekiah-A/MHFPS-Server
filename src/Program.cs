@@ -87,19 +87,21 @@ namespace MHFPS_Server
                 switch(consoleParts[0].ToLower())
                 {
                     case "help":
-                        Console.WriteLine("Commands:\nAnnounce\nAdmin\nDisconnect\nExit");
+                        Console.WriteLine("Commands:\nAnnounce\nAdmin\nGive\nDisconnect\nExit");
                         break;
                     case "announce":
-                        ServerSend.TextChat(0, consoleInput.Replace("announce", "Server:"), new Colour(100, 0, 100, 255));
+                        ServerSend.TextChat(0, consoleInput.Replace("announce", "Server:"), new Colour(255, 0, 230, 255));
                         break;
-                    case "admin":
+                    case "admin": //Can only be issued by server, no packet
                         //TODO: give player by ID admin perms (/give command, change gamemode).
                         break;
+                    case "give":
+                        break;
                     case "disconnect":
-                        //TODO: Disconnect player from server.
+                        //TODO: Disconnect player by ID from server.
                         break;
                     case "exit":
-                    //TODO: disconnect all players first.
+                        //TODO: disconnect all players first.
                         throw new Exception("\nServer Shutdown Called!");
                     default:
                         if (consoleInput != "")
@@ -111,7 +113,8 @@ namespace MHFPS_Server
 
         private static async Task ReadConsoleAsync()
         {
-            await Task.Run(() => {
+            await Task.Run(() =>
+            {
                 consoleInput = Console.ReadLine();
                 return;
             });
