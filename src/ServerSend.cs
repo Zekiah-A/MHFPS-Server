@@ -145,9 +145,16 @@ namespace MHFPS_Server
             }
         }
 
-        public static void PlayerDamage()
+        public static void PlayerDamage(int _playerHit)
         {
-
+            using(Packet _packet = new Packet((int)ServerPackets.playerDamage))
+            {
+                ///<summary> ID of player who was hit. </summary>
+                _packet.Write(_playerHit);
+                _packet.Write(Server.clients[_playerHit].player.health);
+                ///<note> TCP - This is vital stuff </note>
+                SendTCPDataToAll(_packet);
+            }
         }
 
         #endregion
