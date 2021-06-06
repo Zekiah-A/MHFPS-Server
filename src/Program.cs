@@ -101,10 +101,18 @@ namespace MHFPS_Server
                     case "health":
                         ///<summary> See the health of a player by ID. </summary>
                         if (consoleParts.Count() <= 2)
-                            Console.WriteLine($"Health of player {Server.clients[int.Parse(consoleParts[1])].player.username} is: {Server.clients[int.Parse(consoleParts[1])].player.health}");
+                        {
+                            try {
+                                Console.WriteLine($"Health of player {Server.clients[int.Parse(consoleParts[1])].player.username} is: {Server.clients[int.Parse(consoleParts[1])].player.health}");
+                            } catch {} ///<note> Hack to prevent crash on exception</note>
+                        }
                         ///<summary> Set player health. </summary>
                         else if (consoleParts.Count() == 3)
-                            Server.clients[int.Parse(consoleParts[1])].player.health = int.Parse(consoleParts[1]);
+                        {
+                            try {
+                                Server.clients[int.Parse(consoleParts[2])].player.health = int.Parse(consoleParts[2]);
+                            } catch {}
+                        }
                         break;
                     case "disconnect":
                         //TODO: Disconnect player by ID from server.
