@@ -79,8 +79,9 @@ namespace MHFPS_Server
             //HACK: (for testing):
             int _playerHit = _packet.ReadInt();
             float _damageDealt = _packet.ReadFloat();
-            Console.WriteLine($"Player {_fromClient} ({Server.clients[_fromClient].player.username} hit player {_playerHit} ({Server.clients[_playerHit].player.username} and dealt {_damageDealt} damage.");
-            Server.clients[_playerHit].player.health =- _damageDealt;
+            Console.WriteLine($"Player {_fromClient} ({Server.clients[_fromClient].player.username}) hit player {_playerHit} ({Server.clients[_playerHit].player.username}) and dealt {_damageDealt} damage.");
+            
+            Server.clients[_playerHit].player.health -= _damageDealt;
 
             ///<summary>Tell ServerSend to update their health, but do not pass on data directly</summary>
             ServerSend.PlayerDamage(_playerHit );
