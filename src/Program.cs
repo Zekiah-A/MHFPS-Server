@@ -87,7 +87,7 @@ namespace MHFPS_Server
                 switch(consoleParts[0].ToLower())
                 {
                     case "help":
-                        Console.WriteLine("Commands:\nAnnounce\nAdmin\nGive\nDisconnect\nExit");
+                        Console.WriteLine("Commands:\nAnnounce\nAdmin\nGive\nHealth\nDisconnect\nExit");
                         break;
                     case "announce":
                         ServerSend.TextChat(0, consoleInput.Replace("announce", "Server:"), new Colour(255, 0, 230, 255));
@@ -96,6 +96,13 @@ namespace MHFPS_Server
                         //TODO: give player by ID admin perms (/give command, change gamemode).
                         break;
                     case "give":
+                        break;
+                    case "health":
+                        try {
+                            Console.WriteLine($"Health of player {Server.clients[int.Parse(consoleParts[1])].player.username} is: {Server.clients[int.Parse(consoleParts[1])].player.health}");
+                        } catch {
+                            Console.WriteLine("Invalid player ID.");
+                        }
                         break;
                     case "disconnect":
                         //TODO: Disconnect player by ID from server.

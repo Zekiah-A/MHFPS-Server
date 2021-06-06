@@ -27,8 +27,7 @@ namespace MHFPS_Server
             id = _id;
             username = _username;
             position =  _spawnPosition;
-            rotation = Quaternion.Identity;
-            
+            rotation = Quaternion.Identity; 
         }
     } //TODO: fix captilisation
 }

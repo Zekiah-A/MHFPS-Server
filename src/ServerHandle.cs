@@ -53,7 +53,7 @@ namespace MHFPS_Server
             Colour _colour = _packet.ReadColour();
 
             Console.WriteLine($"Player {_fromClient} ({_username}) sent message {_msg}.");
-            
+
             string _formatted = new String($"{_username}: {_msg}");
 
             ServerSend.TextChat(_fromClient, _formatted, _colour);
@@ -68,11 +68,24 @@ namespace MHFPS_Server
             
         }
 
+        //TODO: Server security, make "hit verify"
         public static void PlayerDamageReceived(int _fromClient, Packet _packet)
         {
-            //(we have player who sent)
-            //Player ID damaged (make a server side disctionary)
-            //Float for health taken
+            //TODO:
+            //int _itemId = _packet.ReadInt();
+            //then use the ID of the item in server dictionary to get damage
+            //weapon can also be used to tell client what damage effect to play 
+            
+            //HACK: (for testing):
+            int _playerHit = _packet.ReadInt();
+            float _damageDealt = _packet.ReadFloat();
+            Console.WriteLine($"Player {_fromClient} ({Server.clients[_fromClient].player.username} hit player {_playerHit} ({Server.clients[_playerHit].player.username} and dealt {_damageDealt} damage.");
+            Server.clients[_playerHit].player.health =- _damageDealt;
+
+            ///<summary>Tell ServerSend to update their health, but do not pass on data directly</summary>
+            ServerSend.PlayerDamage();
         }
+
+        //TODO: Other kinds of damage,e.g fall damage
     }
 }

@@ -145,7 +145,11 @@ namespace MHFPS_Server
             }
         }
 
-        //TODO: Implement server damage
+        public static void PlayerDamage()
+        {
+
+        }
+
         #endregion
     }
 }
