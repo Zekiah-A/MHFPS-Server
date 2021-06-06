@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 using System.Numerics;
 using Utils.Colour;
 
@@ -52,16 +53,7 @@ namespace MHFPS_Server
             Colour _colour = _packet.ReadColour();
 
             Console.WriteLine($"Player {_fromClient} ({_username}) sent message {_msg}.");
-           
-            //TODO: fix the worst censor ever
-            if (_msg.ToLower().Contains("sublime") || _msg.ToLower().Contains("axel"))
-            {    
-                _msg = "";
-                foreach(char c in _msg)
-                {
-                    _msg += "*";
-                }
-            }
+            
             string _formatted = new String($"{_username}: {_msg}");
 
             ServerSend.TextChat(_fromClient, _formatted, _colour);
