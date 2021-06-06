@@ -83,7 +83,7 @@ namespace MHFPS_Server
             Server.clients[_playerHit].player.health =- _damageDealt;
 
             ///<summary>Tell ServerSend to update their health, but do not pass on data directly</summary>
-            ServerSend.PlayerDamage(_playerHit);
+            ServerSend.PlayerDamage(_playerHit );
         }
 
         //TODO: Other kinds of damage,e.g fall damage

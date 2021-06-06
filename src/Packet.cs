@@ -9,29 +9,29 @@ using Utils.Colour;
 namespace MHFPS_Server
 {
     /// <summary>Sent from server to client.</summary>
-public enum ServerPackets
-{
-    welcome = 1,
-    spawnPlayer,
-    playerPosition,
-    playerRotation,
-    textChat,
-    udpTest,
-    rigidUpdate,
-    playerDamage
-}
+    public enum ServerPackets
+    {
+        welcome = 1,
+        spawnPlayer,
+        playerPosition,
+        playerRotation,
+        textChat,
+        udpTest,
+        rigidUpdate,
+        playerDamage
+    }
 
-/// <summary>Sent from client to server.</summary>
-public enum ClientPackets
-{
-    welcomeReceived = 1,
-    updatePositionReceived,
-    updateRotationReceived,
-    textChatReceived,
-    udpTestReceived,
-    rigidUpdateRecieved, //TODO: Fix incorrect spelling
-    playerDamageReceived
-}
+    /// <summary>Sent from client to server.</summary>
+    public enum ClientPackets
+    {
+        welcomeReceived = 1,
+        updatePositionReceived,
+        updateRotationReceived,
+        textChatReceived,
+        udpTestReceived,
+        rigidUpdateRecieved, //TODO: Fix incorrect spelling
+        playerDamageReceived
+    }
 
     public class Packet : IDisposable
     {
