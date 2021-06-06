@@ -15,7 +15,7 @@ namespace MHFPS_Server
         static void Main(string[] args)
         {
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("Sublime-Server v0.0.4"); 
+            Console.WriteLine("Sublime-Server v0.0.6"); 
             Console.WriteLine("By zekiahepic");
             Console.ResetColor();
             SelectGamemode();
