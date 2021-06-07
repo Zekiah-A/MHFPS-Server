@@ -10,8 +10,6 @@ namespace MHFPS_Server
 {
     class Program
     {
-        private static string consoleInput;
-
         private static bool isRunning = false;
         static void Main(string[] args)
         {
