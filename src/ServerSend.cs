@@ -125,6 +125,8 @@ namespace MHFPS_Server
 
         public static void TextChat(int _fromClient, string _formatted, Colour _colour)
         {
+            if (_fromClient == 0)
+                Console.WriteLine($"Server sent message {_formatted.Split(" ")[1]}.");
             using (Packet _packet = new Packet((int)ServerPackets.textChat))
             {
                 _packet.Write(_fromClient);
