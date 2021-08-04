@@ -46,7 +46,16 @@ namespace MHFPS_Server
                 ///<summary>Done for performance, thread not left doing nothing.</summary>
                 if (_nextLoop > DateTime.Now)
                 {
-                    Thread.Sleep(_nextLoop - DateTime.Now);
+                    try
+                    {
+                        Thread.Sleep(_nextLoop - DateTime.Now);
+                    }
+                    catch (Exception _e)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine($"Fatal error on main thread tick!\n{_e}");
+                        Console.ResetColor();
+                    }
                 }
             }
         }

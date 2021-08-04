@@ -10,13 +10,14 @@ namespace MHFPS_Server
 {
     class CommandManager
     {
-        public static async void InterpCommand()
+        public static async void InterpCommand() //TODO: Make a thread call this? 
         {
             while (true)
             {
                 await Task.Run(() =>
                 {
                     //await ReadConsoleAsync();
+                    Console.Write("> ");
                     string consoleInput = Console.ReadLine();
 
                     string[] consoleParts = consoleInput.Split(' ');
